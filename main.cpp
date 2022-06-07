@@ -125,6 +125,5 @@ int main(int argc, char* argv[])
     std::cout << "Destructor: " << getTime(start, end) << " nanoseconds\n";
 
 
-
     return 0;
 }

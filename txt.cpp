@@ -45,12 +45,9 @@ l1::Txt::Txt(const Txt& other)
 }
 
 
-l1::Txt::Txt(Txt&& other)
-    : __size(other.__size)
-    , __data(other.__data)
+l1::Txt::Txt(Txt&& other) : l1::Txt()
 {
-    other.__size = 0;
-    other.__data = nullptr;
+    *this = static_cast<Txt&&>(other);
 }
 
 
@@ -82,23 +79,12 @@ l1::Txt& l1::Txt::operator=(const Txt& other)
 {
     if(this != &other)
     {
-        clear();
-
-        this->__size = other.__size;
-        this->__data = new char*[this->__size];
-
-        size_t lineLength = 0;
-
-        for(size_t i = 0; i < this->__size; ++i)
-        {
-            lineLength = strlen(other.__data[i]) + 1;
-            this->__data[i] = new char[lineLength];
-
-            strncpy(this->__data[i], other.__data[i], lineLength);
-        }
+        return *this = Txt(other);
     }
-
-    return *this;
+    else
+    {
+        return *this;
+    }
 }
 
 
