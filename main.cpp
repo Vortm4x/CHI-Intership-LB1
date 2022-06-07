@@ -75,23 +75,44 @@ int main(int argc, char* argv[])
 
 
     //Moving assignment (to empty obj)
-    l1::Txt c;
+    l1::Txt e;
 
-    c = getTempObject(argv[1], start);
+    e = getTempObject(argv[1], start);
 
     end = HRClock::now();
 
     std::cout << "Moving assignment (to empty obj): " << getTime(start, end) << " nanoseconds, "
-              << "c.size(): " << c.size() << "\n";
+              << "e.size(): " << e.size() << "\n";
 
 
     //Moving assignment (to non-empty obj)
-    c = getTempObject(argv[1], start);
+    e = getTempObject(argv[1], start);
 
     end = HRClock::now();
 
     std::cout << "Moving assignment (to non-empty obj): " << getTime(start, end) << " nanoseconds, "
+              << "e.size(): " << e.size() << "\n";
+
+
+    //Copying constructor
+    start = HRClock::now();
+
+    l1::Txt c(a);
+
+    end = HRClock::now();
+
+    std::cout << "Copying constructor: " << getTime(start, end) << " nanoseconds, "
               << "c.size(): " << c.size() << "\n";
+
+
+    //Moving constructor
+
+    l1::Txt d(static_cast<l1::Txt&&>(getTempObject(argv[1], start) ) );
+
+    end = HRClock::now();
+
+    std::cout << "Moving constructor: " << getTime(start, end) << " nanoseconds, "
+              << "d.size(): " << d.size() << "\n";
 
 
     //Destructor
